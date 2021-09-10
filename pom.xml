@@ -23,6 +23,7 @@
         <java.version>11</java.version>
         <java.compile.encoding>UTF-8</java.compile.encoding>
         <lombok.version>1.18.20</lombok.version>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
 
     <modules>
@@ -51,6 +52,7 @@
                 <artifactId>application-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.cognizant</groupId>
                 <artifactId>storage-support</artifactId>
@@ -70,6 +72,18 @@
                 <version>2020.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
         </dependencies>
