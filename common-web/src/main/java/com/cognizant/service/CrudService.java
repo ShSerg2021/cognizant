@@ -1,6 +1,6 @@
-package com.cognizant.config.service;
+package com.cognizant.service;
 
-import com.cognizant.config.domain.BaseEntity;
+import com.cognizant.domain.BaseEntity;
 import lombok.NonNull;
 
 import java.util.List;

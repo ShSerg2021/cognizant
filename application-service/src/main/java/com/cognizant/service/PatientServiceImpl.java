@@ -1,6 +1,5 @@
 package com.cognizant.service;
 
-import com.cognizant.config.service.DefaultCrudService;
 import com.cognizant.domain.Patient;
 import org.springframework.stereotype.Service;
 

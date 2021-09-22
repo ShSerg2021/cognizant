@@ -1,6 +1,5 @@
 package com.cognizant.domain;
 
-import com.cognizant.config.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

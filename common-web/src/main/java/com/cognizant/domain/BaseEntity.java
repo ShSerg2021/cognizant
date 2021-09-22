@@ -1,4 +1,4 @@
-package com.cognizant.config.domain;
+package com.cognizant.domain;
 
 import lombok.Data;
 

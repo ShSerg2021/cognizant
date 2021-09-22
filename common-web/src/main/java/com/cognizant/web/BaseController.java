@@ -1,7 +1,7 @@
-package com.cognizant.config.web;
+package com.cognizant.web;
 
-import com.cognizant.config.domain.BaseEntity;
-import com.cognizant.config.service.CrudService;
+import com.cognizant.domain.BaseEntity;
+import com.cognizant.service.CrudService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

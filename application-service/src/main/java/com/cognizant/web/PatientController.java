@@ -1,6 +1,5 @@
 package com.cognizant.web;
 
-import com.cognizant.config.web.BaseController;
 import com.cognizant.domain.Patient;
 import com.cognizant.service.PatientService;
 import org.springframework.web.bind.annotation.RequestMapping;
