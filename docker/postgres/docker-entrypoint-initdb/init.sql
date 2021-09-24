@@ -1,0 +1,18 @@
+-- APPLICATION DB
+CREATE ROLE app WITH
+    LOGIN
+    NOSUPERUSER
+    INHERIT
+    NOCREATEDB
+    NOCREATEROLE
+    NOREPLICATION
+    PASSWORD 'app';
+
+CREATE DATABASE test_app
+    WITH
+    OWNER = app
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
