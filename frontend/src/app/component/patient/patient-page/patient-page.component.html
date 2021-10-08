@@ -1,0 +1,19 @@
+<div>
+  <h1>Patients</h1>
+  <div class="patient-block">
+    <div class="patient-context" *ngFor="let patient of (patients | async)">
+      <mat-card class="example-card">
+        <mat-card-title>{{patient.name}}</mat-card-title>
+        <mat-card-subtitle>Test</mat-card-subtitle>
+        <mat-card-content>
+          <p>Test content</p>
+          <p>{{patient.name}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="router.navigate(['patient', patient.id])">EDIT</button>
+          <button mat-button (click)="delete(patient.id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
