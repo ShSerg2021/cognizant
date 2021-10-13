@@ -1,0 +1,24 @@
+{
+  "singleQuote": true,
+  "arrow-body-style": "off",
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": true,
+  "prefer-arrow-callback": "off",
+  "printWidth": 120,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": "*.component.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
+}
