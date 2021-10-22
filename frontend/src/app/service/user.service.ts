@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { BehaviorSubject } from 'rxjs';
+import { User as AuthUser } from '@auth0/auth0-spa-js';
+
+export type User = AuthUser | null | undefined;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private user = new BehaviorSubject<any>(null);
+  private user = new BehaviorSubject<User>(null);
 
   constructor(private auth: AuthService) {
     auth.user$.subscribe((data) => this.setUser(data));
   }
 
-  setUser(user: any): void {
+  setUser(user: User): void {
     this.user.next(user);
   }
 
-  getUser(): any {
+  getUser(): User {
     return this.user.getValue();
   }
 
-  getUserRoles(): any {
+  getUserRoles(): string[] {
     const user = this.user.getValue();
     return user ? user['http://cognizant.com/roles'] || [] : [];
   }
