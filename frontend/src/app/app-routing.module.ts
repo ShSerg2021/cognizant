@@ -1,29 +1,40 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {PatientPageComponent} from './component/patient/patient-page/patient-page.component';
-import {MainComponent} from './component/main/main.component';
-import {PatientEditComponent} from './component/patient/patient-edit/patient-edit.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { PatientPageComponent } from './component/patient/patient-page/patient-page.component';
+import { MainComponent } from './component/main/main.component';
+import { PatientEditComponent } from './component/patient/patient-edit/patient-edit.component';
+import { AdminGuard } from './guard/admin.guard';
+import { AppGuard } from './guard/app.guard';
 
-const routes: Routes = [{
-  path: '', redirectTo: 'main', pathMatch: 'full'
-},
+const routes: Routes = [
   {
-    path: 'main', component: MainComponent
+    path: '',
+    redirectTo: 'main',
+    pathMatch: 'full',
   },
   {
-    path: 'patients', component: PatientPageComponent
+    path: 'main',
+    component: MainComponent,
   },
   {
-    path: 'patient', component: PatientEditComponent
+    path: 'patients',
+    component: PatientPageComponent,
+    canActivate: [AppGuard],
   },
   {
-    path: 'patient/:id', component: PatientEditComponent
+    path: 'patient',
+    component: PatientEditComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'patient/:id',
+    component: PatientEditComponent,
+    canActivate: [AdminGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
