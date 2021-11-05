@@ -1,34 +1,36 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {PatientService} from '../../../service/patient.service';
-import {Observable} from 'rxjs';
-import {Patient} from '../../../domain/patient';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { PatientService } from '../../../service/patient.service';
+import { Patient } from '../../../domain/patient';
 
 @Component({
   selector: 'app-patient-page',
   templateUrl: './patient-page.component.html',
   styleUrls: ['./patient-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PatientPageComponent implements OnInit {
+  patients: Patient[];
+  loading = false;
 
-  patients: Observable<Patient[]>;
-
-  constructor(private patientService: PatientService, private ref: ChangeDetectorRef, public router: Router) { }
+  constructor(private patientService: PatientService) {}
 
   ngOnInit(): void {
     this.loadItems();
   }
 
   loadItems() {
-    this.patients = this.patientService.findAll();
+    this.loading = true;
+    this.patientService.findAll().subscribe(
+      (data) => {
+        this.patients = data;
+        this.loading = false;
+      },
+      () => this.loading = false
+    );
   }
 
   delete(id: string): void {
     this.patientService.delete(id).subscribe(() => {
       this.loadItems();
-      this.ref.markForCheck();
     });
   }
-
 }

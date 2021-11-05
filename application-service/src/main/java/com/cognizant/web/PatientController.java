@@ -8,4 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("patient")
 public class PatientController extends BaseController<Patient, PatientService> {
+
+    public PatientController() {
+        super("ROLE_Admin", "ROLE_Admin", "ROLE_Admin");
+    }
 }

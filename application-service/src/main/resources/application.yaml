@@ -14,9 +14,18 @@ spring:
     password: app
     url: jdbc:postgresql://localhost:5432/test_app
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-uy1xbyu5.us.auth0.com/
+
 server:
   port: 8100
 
 eureka:
   instance:
     hostname: localhost
+
+auth0:
+  audience: https://dev-uy1xbyu5.us.auth0.com/api/v2/
