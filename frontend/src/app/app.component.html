@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container mat-app-background">
   <mat-toolbar color="primary" class="main-toolbar">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -10,9 +10,10 @@
           <img class="logout-icon" alt="logout-icon" [src]="userService.getUser()?.picture" />
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item disabled>
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
+          <button mat-menu-item>
+            <mat-icon>brightness_5</mat-icon>
+            <mat-slide-toggle [formControl]="toggleControl" style="margin-right: 1em"></mat-slide-toggle>
+            <mat-icon style="margin-right: 0">bedtime</mat-icon>
           </button>
           <button mat-menu-item (click)="auth.logout({ returnTo: document.location.origin })">
             <mat-icon>logout</mat-icon>

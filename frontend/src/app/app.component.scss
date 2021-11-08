@@ -27,6 +27,7 @@ h1.main-app-name {
 
 .main-card {
   margin: 10px;
+  padding: 10px 0;
 }
 
 .mat-card-content {
@@ -41,4 +42,8 @@ h1.main-app-name {
 .logout-icon {
   width: 3em;
   border-radius: 50%;
+}
+
+mat-slide-toggle {
+  vertical-align: middle;
 }

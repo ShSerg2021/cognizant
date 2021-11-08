@@ -4,6 +4,12 @@
 
 .patient-context {
   display: inline-flex;
-  margin-bottom: 10px;
   margin-right: 10px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+mat-card {
+  width: 100%;
 }

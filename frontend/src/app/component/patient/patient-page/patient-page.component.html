@@ -1,2 +1,7 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-<app-patient-template [patients]="patients" (delete)="delete($event)" *ngIf="patients"></app-patient-template>
+<div class='mat-app-background sidebar-content'>
+  <h1>Patients</h1>
+  <div>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <app-patient-template [patients]="patients" (delete)="delete($event)" *ngIf="patients"></app-patient-template>
+  </div>
+</div>

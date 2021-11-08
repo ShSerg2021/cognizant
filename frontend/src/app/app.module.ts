@@ -11,7 +11,7 @@ import { PatientEditComponent } from './component/patient/patient-edit/patient-e
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { PatientTemplateComponent } from './component/patient/patient-page/patient-template/patient-template.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, PatientPageComponent, MainComponent, PatientEditComponent, PatientTemplateComponent],
@@ -26,10 +26,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
       clientId: 'yrH6DyekaRmsuVKoDsVmaep5XR2pv2Dc',
       audience: 'https://dev-uy1xbyu5.us.auth0.com/api/v2/',
       httpInterceptor: {
-        allowedList: ['*'],
-      },
+        allowedList: ['*']
+      }
     }),
-    MatProgressBarModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],

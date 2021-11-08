@@ -1,8 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Inject, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '@auth0/auth0-angular';
 import { UserService } from './service/user.service';
 import { DOCUMENT } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { LocalStorageService } from './service/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +13,25 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
-  mobileQuery: MediaQueryList;
+  private readonly themeKey = 'theme';
 
   private readonly mobileQueryListener: () => void;
 
+  mobileQuery: MediaQueryList;
+
   menuTabs: any = [];
+
+  toggleControl = new FormControl(this.localStorageService.getItem(this.themeKey) === 'darkMode');
+
+  @HostBinding('class') className = '';
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private overlay: OverlayContainer,
     public auth: AuthService,
     public userService: UserService,
+    private localStorageService: LocalStorageService,
     @Inject(DOCUMENT) public document: Document
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -28,6 +39,8 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
     this.buildMenu();
     this.auth.user$.subscribe(() => this.buildMenu());
+    this.toggleControl.valueChanges.subscribe((darkMode) => this.toggleTheme(darkMode));
+    this.toggleTheme(this.toggleControl.value);
   }
 
   ngOnDestroy(): void {
@@ -45,5 +58,16 @@ export class AppComponent implements OnDestroy {
         routerLink: '/patients',
       },
     ];
+  }
+
+  private toggleTheme(darkMode: boolean): void {
+    const darkClassName = 'darkMode';
+    this.className = darkMode ? darkClassName : '';
+    this.localStorageService.setItem(this.themeKey, this.className);
+    if (darkMode) {
+      this.overlay.getContainerElement().classList.add(darkClassName);
+    } else {
+      this.overlay.getContainerElement().classList.remove(darkClassName);
+    }
   }
 }

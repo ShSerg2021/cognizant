@@ -22,8 +22,10 @@
     <properties>
         <java.version>11</java.version>
         <java.compile.encoding>UTF-8</java.compile.encoding>
-        <lombok.version>1.18.20</lombok.version>
+        <lombok.version>1.18.22</lombok.version>
         <swagger.version>3.0.0</swagger.version>
+        <sonar.organization>shserg2021</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <modules>
