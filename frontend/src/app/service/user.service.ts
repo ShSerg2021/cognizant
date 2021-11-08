@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User as AuthUser } from '@auth0/auth0-spa-js';
+import { map } from 'rxjs/operators';
 
 export type User = AuthUser | null | undefined;
 
@@ -9,26 +10,13 @@ export type User = AuthUser | null | undefined;
   providedIn: 'root',
 })
 export class UserService {
-  private user = new BehaviorSubject<User>(null);
+  constructor(private auth: AuthService) {}
 
-  constructor(private auth: AuthService) {
-    auth.user$.subscribe((data) => this.setUser(data));
-  }
-
-  setUser(user: User): void {
-    this.user.next(user);
-  }
-
-  getUser(): User {
-    return this.user.getValue();
-  }
-
-  getUserRoles(): string[] {
-    const user = this.user.getValue();
+  getUserRoles(user: User): string[] {
     return user ? user['http://cognizant.com/roles'] || [] : [];
   }
 
-  hasRole(role: string): boolean {
-    return this.getUserRoles().includes(role);
+  hasRole(role: string): Observable<boolean> {
+    return this.auth.user$.pipe(map((user) => this.getUserRoles(user).includes(role)));
   }
 }

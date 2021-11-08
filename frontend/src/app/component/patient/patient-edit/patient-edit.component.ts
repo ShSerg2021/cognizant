@@ -18,7 +18,9 @@ export class PatientEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientService.findById(this.id).subscribe((data) => this.patient = data);
+    if (this.id) {
+      this.patientService.findById(this.id).subscribe((data) => this.patient = data);
+    }
   }
 
 }

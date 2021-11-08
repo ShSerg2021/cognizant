@@ -7,7 +7,7 @@
     <div class="login-button">
       <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
         <button mat-icon-button [matMenuTriggerFor]="menu">
-          <img class="logout-icon" alt="logout-icon" [src]="userService.getUser()?.picture" />
+          <img class="logout-icon" alt="logout-icon" [src]="(auth.user$ | async)?.picture" />
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>
