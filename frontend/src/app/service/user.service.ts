@@ -12,11 +12,15 @@ export type User = AuthUser | null | undefined;
 export class UserService {
   constructor(private auth: AuthService) {}
 
-  getUserRoles(user: User): string[] {
-    return user ? user['http://cognizant.com/roles'] || [] : [];
+  hasUserRole(user: User, role: string): boolean {
+    return UserService.getUserRoles(user).includes(role);
   }
 
   hasRole(role: string): Observable<boolean> {
-    return this.auth.user$.pipe(map((user) => this.getUserRoles(user).includes(role)));
+    return this.auth.user$.pipe(map((user) => UserService.getUserRoles(user).includes(role)));
+  }
+
+  private static getUserRoles(user: User): string[] {
+    return user ? user['http://cognizant.com/roles'] || [] : [];
   }
 }

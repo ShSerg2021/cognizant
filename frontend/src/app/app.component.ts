@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, HostBinding, Inject, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '@auth0/auth0-angular';
-import { UserService } from './service/user.service';
+import { User, UserService } from './service/user.service';
 import { DOCUMENT } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -37,8 +37,7 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
-    this.buildMenu();
-    this.auth.user$.subscribe(() => this.buildMenu());
+    this.auth.user$.subscribe((user) => this.buildMenu(user));
     this.toggleControl.valueChanges.subscribe((darkMode) => this.toggleTheme(darkMode));
     this.toggleTheme(this.toggleControl.value);
   }
@@ -47,13 +46,13 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 
-  buildMenu() {
+  buildMenu(user: User) {
     this.menuTabs = [
       {
         label: 'Main',
         routerLink: '/main',
       },
-      this.userService.hasRole('Admin') && {
+      this.userService.hasUserRole(user, 'Admin') && {
         label: 'Patients',
         routerLink: '/patients',
       },
