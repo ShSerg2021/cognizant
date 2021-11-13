@@ -16,3 +16,22 @@ CREATE DATABASE test_app
     LC_CTYPE = 'en_US.utf8'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
+
+-- APPLICATION DB
+CREATE ROLE notification WITH
+    LOGIN
+    NOSUPERUSER
+    INHERIT
+    NOCREATEDB
+    NOCREATEROLE
+    NOREPLICATION
+    PASSWORD 'notification';
+
+CREATE DATABASE notification
+    WITH
+    OWNER = notification
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;

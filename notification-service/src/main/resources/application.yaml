@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: notification-service
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  datasource:
+    username: notification
+    password: notification
+    url: jdbc:postgresql://localhost:5432/notification
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-uy1xbyu5.us.auth0.com/
+
+server:
+  port: 8200
+
+eureka:
+  instance:
+    hostname: localhost
+
+auth0:
+  audience: https://dev-uy1xbyu5.us.auth0.com/api/v2/

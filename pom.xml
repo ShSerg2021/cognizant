@@ -30,7 +30,7 @@
 
     <modules>
         <module>application-service</module>
-        <module>storage-service</module>
+        <module>notification-service</module>
         <module>common-web</module>
         <module>gateway</module>
         <module>discovery-service</module>
@@ -57,7 +57,7 @@
 
             <dependency>
                 <groupId>com.cognizant</groupId>
-                <artifactId>storage-support</artifactId>
+                <artifactId>notification-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
