@@ -2,5 +2,9 @@
   "/application-service": {
     "target": "http://localhost:80",
     "secure": false
+  },
+  "/notification-service": {
+    "target": "http://localhost:80",
+    "secure": false
   }
 }

@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,11 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        DefaultBearerTokenResolver resolver = new DefaultBearerTokenResolver();
+        resolver.setAllowUriQueryParameter(true);
         http.authorizeRequests()
-                .mvcMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                .mvcMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs", "/rqueue/**").permitAll()
                 .and().authorizeRequests()
                 .anyRequest().authenticated()
-                .and().oauth2ResourceServer().jwt()
+                .and().oauth2ResourceServer().bearerTokenResolver(resolver).jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
     }
 

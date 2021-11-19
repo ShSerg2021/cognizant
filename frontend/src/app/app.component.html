@@ -6,6 +6,16 @@
     <h1 class="main-app-name">Cognizant</h1>
     <div class="login-button">
       <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+        <ng-container *ngIf="events.length; else emptyNotification">
+          <button mat-icon-button [matBadge]="events.length" matBadgeColor="warn" style="margin-right: 25px">
+            <mat-icon style="font-size: 2.2em">notifications</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #emptyNotification>
+          <button mat-icon-button style="margin-right: 25px">
+            <mat-icon style="font-size: 2.2em">notifications_none</mat-icon>
+          </button>
+        </ng-template>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <img class="logout-icon" alt="logout-icon" [src]="(auth.user$ | async)?.picture" />
         </button>

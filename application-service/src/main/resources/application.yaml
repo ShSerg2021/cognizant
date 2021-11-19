@@ -29,3 +29,7 @@ eureka:
 
 auth0:
   audience: https://dev-uy1xbyu5.us.auth0.com/api/v2/
+
+rqueue:
+  name:
+    event-feed: event-feed

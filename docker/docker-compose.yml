@@ -9,15 +9,21 @@ services:
       - ./postgres/docker-entrypoint-initdb:/docker-entrypoint-initdb.d
       - pg-data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  redis:
+    container_name: redis
+    image: redis:6.2.6
+    ports:
+      - "6379:6379"
+
   discovery-service:
     build: ../discovery-service
     ports:
-      - 8761:8761
+      - "8761:8761"
 
 volumes:
   pg-data:

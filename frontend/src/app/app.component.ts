@@ -6,6 +6,10 @@ import { DOCUMENT } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { LocalStorageService } from './service/local-storage.service';
+import { combineLatest } from 'rxjs';
+import { WebSocketService } from './service/web-socket.service';
+import { EventFeedService } from './service/event-feed.service';
+import { EventFeed } from './domain/event-feed';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +25,10 @@ export class AppComponent implements OnDestroy {
 
   menuTabs: any = [];
 
+  user: User;
+
+  events: EventFeed[] = [];
+
   toggleControl = new FormControl(this.localStorageService.getItem(this.themeKey) === 'darkMode');
 
   @HostBinding('class') className = '';
@@ -31,15 +39,31 @@ export class AppComponent implements OnDestroy {
     private overlay: OverlayContainer,
     public auth: AuthService,
     public userService: UserService,
+    webSocketService: WebSocketService,
+    private eventFeedService: EventFeedService,
     private localStorageService: LocalStorageService,
     @Inject(DOCUMENT) public document: Document
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
-    this.auth.user$.subscribe((user) => this.buildMenu(user));
     this.toggleControl.valueChanges.subscribe((darkMode) => this.toggleTheme(darkMode));
+    this.eventFeedService.eventsHandler.subscribe((data: EventFeed[]) => this.events = data);
     this.toggleTheme(this.toggleControl.value);
+    combineLatest([this.auth.user$, this.auth.getAccessTokenSilently(), this.auth.isAuthenticated$]).subscribe(
+      ([user, token, isAuthenticated]) => {
+        this.buildMenu(user);
+        if (isAuthenticated) {
+          if (user && (!this.user || user.email !== this.user.email)) {
+            this.eventFeedService.findAll();
+            webSocketService.connect(user, token);
+            this.user = user;
+          }
+        } else {
+          webSocketService.disconnect();
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {

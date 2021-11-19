@@ -23,6 +23,8 @@
     "@angular/router": "^12.2.8",
     "@auth0/auth0-angular": "^1.7.0",
     "rxjs": "~6.6.0",
+    "sockjs-client": "^1.5.2",
+    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
